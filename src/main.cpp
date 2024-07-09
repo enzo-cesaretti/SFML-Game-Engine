@@ -6,9 +6,20 @@
 */
 
 #include <iostream>
+#include "Engine.hpp"
+#include "State/GameState.hpp"
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
+    try {
+        Engine engine;
+        engine.pushState<DefaultState>(engine);
+        engine.pushState<GameState>(engine);
+        engine.popState();
+        engine.run();
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return 84;
+    }
     return 0;
 }
